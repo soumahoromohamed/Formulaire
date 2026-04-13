@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $age       = $_POST['age'] ?? '';
     $filiere   = $_POST['filiere'] ?? '';
     $motivation = $_POST['motivation'] ?? '';
+
+    // true si cochée, false sinon
     $reglement = isset($_POST['reglement']);
 
     if (empty($prenom)) {
@@ -61,6 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <h1>Formulaire de candidature</h1>
         <p class="page-subtitle">Veuillez renseigner vos informations pour soumettre votre candidature.</p>
+
+        <?php if (!empty($erreurs)): ?>
+                <ul class="erreurs">
+                    <?php foreach ($erreurs as $e): ?>
+                        <li><?php echo $e; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+        <?php endif; ?>
 
         <form action="candidature.php" method="POST">
 
