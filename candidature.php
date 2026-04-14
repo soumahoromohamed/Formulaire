@@ -61,70 +61,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <div class="container">
-        <h1>Formulaire de candidature</h1>
-        <p class="page-subtitle">Veuillez renseigner vos informations pour soumettre votre candidature.</p>
 
-        <?php if (!empty($erreurs)): ?>
+        <?php if (empty($erreurs) && $_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+
+            <?php
+                echo "<div class='confirmation'>";
+                echo "<h2>Candidature reçue !</h2>";
+                echo "<p>Prénom : " . $prenom . "</p>";
+                echo "<p>Nom : " . $nom . "</p>";
+                echo "<p>Email : " . $email . "</p>";
+                echo "<p>Âge : " . $age . " ans</p>";
+                echo "<p>Filière choisie : " . $filiere . "</p>";
+                echo "<p>Lettre de motivation : " . $motivation . "</p>";
+                echo "<p class='message-final'>Votre candidature a bien été enregistrée. Nous vous contacterons à l'adresse indiquée.</p>";
+                echo "<a href='candidature.php'>Soumettre une nouvelle candidature</a>";
+                echo "</div>";
+            ?>
+        <?php else: ?>
+
+            <h1>Formulaire de candidature</h1>
+            <p class="page-subtitle">Veuillez renseigner vos informations pour soumettre votre candidature.</p>
+
+            <?php if (!empty($erreurs)): ?>
                 <ul class="erreurs">
                     <?php foreach ($erreurs as $e): ?>
                         <li><?php echo $e; ?></li>
                     <?php endforeach; ?>
                 </ul>
+            <?php endif; ?>
+
+            <form action="candidature.php" method="POST">
+
+                <div class="form-group">
+                    <label>Prénom :
+                    <input type="text" name="prenom" value="<?php echo $prenom; ?>">
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Nom :
+                    <input type="text" name="nom" value="<?php echo $nom; ?>">
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Email :
+                    <input type="email" name="email" value="<?php echo $email; ?>">
+                    </label>
+                </div>
+
+                <div class="form-group">
+                     <label>Âge :
+                     <input type="number" name="age" value="<?php echo $age; ?>">
+                     </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Filière souhaitée :</label>
+                    <select name="filiere">
+                        <option value="" <?php echo ($filiere === '') ? 'selected' : ''; ?>>-- Choisir --</option>
+                        <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>Informatique</option>
+                        <option value="Électronique" <?php echo ($filiere === 'Électronique') ? 'selected' : ''; ?>>Électronique</option>
+                        <option value="Mécanique" <?php echo ($filiere === 'Mécanique') ? 'selected' : ''; ?>>Mécanique</option>
+                        <option value="Autre" <?php echo ($filiere === 'Autre') ? 'selected' : ''; ?>>Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                     <label>Lettre de motivation :</label>
+                     <textarea name="motivation" rows="6"><?php echo $motivation; ?></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                     <input type="checkbox" name="reglement" value="1" <?php echo $reglement ? 'checked' : ''; ?>>
+                     <label>J'ai lu et j'accepte le règlement du club.</label>
+                </div>
+
+                <div>
+                    <button type="submit">Envoyer ma candidature</button>
+                </div>
+            </form>
+            
         <?php endif; ?>
 
-        <form action="candidature.php" method="POST">
-
-            <div class="form-group">
-                <label>Prénom :
-                    <input type="text" name="prenom" value="<?php echo $prenom; ?>">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>Nom :
-                    <input type="text" name="nom" value="<?php echo $nom; ?>">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>Email :
-                    <input type="email" name="email" value="<?php echo $email; ?>">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>Âge :
-                    <input type="number" name="age" value="<?php echo $age; ?>">
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>Filière souhaitée :</label>
-                <select name="filiere">
-                    <option value="" <?php echo ($filiere === '') ? 'selected' : ''; ?>>-- Choisir --</option>
-                    <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>Informatique</option>
-                    <option value="Électronique" <?php echo ($filiere === 'Électronique') ? 'selected' : ''; ?>>Électronique</option>
-                    <option value="Mécanique" <?php echo ($filiere === 'Mécanique') ? 'selected' : ''; ?>>Mécanique</option>
-                    <option value="Autre" <?php echo ($filiere === 'Autre') ? 'selected' : ''; ?>>Autre</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Lettre de motivation</label>
-                <textarea name="motivation" rows="6"><?php echo $motivation; ?></textarea>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" name="reglement" value="1" <?php echo $reglement ? 'checked' : ''; ?>>
-                <label>J'ai lu et j'accepte le règlement du club.</label>
-            </div>
-
-            <div>
-                <button type="submit">Envoyer ma candidature</button>
-            </div>
-        </form>
-        
     </div>
-
+    
 </body>
 </html>
