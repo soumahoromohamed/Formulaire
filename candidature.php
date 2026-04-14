@@ -75,55 +75,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="candidature.php" method="POST">
 
             <div class="form-group">
-                 <label>Prénom :
-                 <input type="text" name="prenom">
-                 </label>
+                <label>Prénom :
+                    <input type="text" name="prenom" value="<?php echo $prenom; ?>">
+                </label>
             </div>
 
             <div class="form-group">
-                 <label>Nom :
-                 <input type="text" name="nom">
-                 </label>
+                <label>Nom :
+                    <input type="text" name="nom" value="<?php echo $nom; ?>">
+                </label>
             </div>
 
             <div class="form-group">
-                 <label>Email :
-                 <input type="email" name="email">
-                 </label>
+                <label>Email :
+                    <input type="email" name="email" value="<?php echo $email; ?>">
+                </label>
             </div>
 
             <div class="form-group">
-                 <label>Âge :
-                 <input type="number" name="age">
-                 </label>
+                <label>Âge :
+                    <input type="number" name="age" value="<?php echo $age; ?>">
+                </label>
             </div>
 
             <div class="form-group">
-                 <label>Filière souhaitée :</label>
-                 <select name="filiere">
-                    <option value="">-- Choisir --</option>
-                    <option value="Informatique">Informatique</option>
-                    <option value="Électronique">Électronique</option>
-                    <option value="Mécanique">Mécanique</option>
-                    <option value="Autre">Autre</option>
-                 </select>
+                <label>Filière souhaitée :</label>
+                <select name="filiere">
+                    <option value="" <?php echo ($filiere === '') ? 'selected' : ''; ?>>-- Choisir --</option>
+                    <option value="Informatique" <?php echo ($filiere === 'Informatique') ? 'selected' : ''; ?>>Informatique</option>
+                    <option value="Électronique" <?php echo ($filiere === 'Électronique') ? 'selected' : ''; ?>>Électronique</option>
+                    <option value="Mécanique" <?php echo ($filiere === 'Mécanique') ? 'selected' : ''; ?>>Mécanique</option>
+                    <option value="Autre" <?php echo ($filiere === 'Autre') ? 'selected' : ''; ?>>Autre</option>
+                </select>
             </div>
 
             <div class="form-group">
-                 <label>Lettre de motivation :</label>
-                 <textarea name="motivation" rows="6"></textarea>
+                <label>Lettre de motivation</label>
+                <textarea name="motivation" rows="6"><?php echo $motivation; ?></textarea>
             </div>
 
             <div class="checkbox-group">
-                 <input type="checkbox"  name="reglement" value="1">
-                 <label>J'ai lu et j'accepte le règlement du club.</label>
+                <input type="checkbox" name="reglement" value="1" <?php echo $reglement ? 'checked' : ''; ?>>
+                <label>J'ai lu et j'accepte le règlement du club.</label>
             </div>
 
             <div>
-                 <button type="submit">Envoyer ma candidature</button>
+                <button type="submit">Envoyer ma candidature</button>
             </div>
         </form>
-
+        
     </div>
 
 </body>
