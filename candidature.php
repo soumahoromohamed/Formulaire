@@ -2,6 +2,7 @@
 $prenom    = '';
 $nom       = '';
 $email     = '';
+$email_confirm = '';
 $age       = '';
 $filiere   = '';
 $motivation = '';
@@ -13,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom    = $_POST['prenom'] ?? '';
     $nom       = $_POST['nom'] ?? '';
     $email     = $_POST['email'] ?? '';
+    $email_confirm = $_POST['email_confirm'] ?? '';
     $age       = $_POST['age'] ?? '';
     $filiere   = $_POST['filiere'] ?? '';
     $motivation = $_POST['motivation'] ?? '';
@@ -30,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erreurs[] = "L'adresse email est invalide.";
+    }
+
+    if ($email !== $email_confirm) {
+    $erreurs[] = "Les deux adresses email ne correspondent pas.";
     }
 
     if (!is_numeric($age) || $age < 16 || $age > 30) {
@@ -112,6 +118,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label>Email :
                     <input type="email" name="email" value="<?php echo $email; ?>">
                     </label>
+                </div>
+                <div class="form-group">
+                     <label>Confirmez votre email :
+                     <input type="email" name="email_confirm" value="<?php echo $email_confirm; ?>">
+                     </label>
                 </div>
 
                 <div class="form-group">
