@@ -44,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreurs[] = "La motivation doit contenir au moins 30 caractères.";
     }
 
+    if (strlen($motivation) > 300) {
+    $erreurs[] = "La lettre de motivation ne doit pas dépasser 300 caractères.";
+    }
+
     if (!$reglement) {
         $erreurs[] = "Vous devez accepter le règlement.";
     }
@@ -130,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group">
                      <label>Lettre de motivation :</label>
                      <textarea name="motivation" rows="6"><?php echo $motivation; ?></textarea>
+                     <p><?php echo strlen($motivation); ?> / 300 caractères</p>
                 </div>
 
                 <div class="checkbox-group">
